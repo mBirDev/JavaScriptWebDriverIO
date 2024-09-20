@@ -1,0 +1,12 @@
+# Node modules
+node_modules/
+
+# Allure results
+allure-results/
+allure-report/
+
+# Other potential ignores
+.DS_Store
+.env
+dist/
+build/
