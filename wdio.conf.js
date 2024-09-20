@@ -1,3 +1,6 @@
+const propertiesReader = require('properties-reader');
+const properties = propertiesReader('config.properties');
+
 exports.config = {
     //
     // ====================

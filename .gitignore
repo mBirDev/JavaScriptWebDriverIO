@@ -10,3 +10,6 @@ allure-report/
 .env
 dist/
 build/
+
+# Ignore properties file containing sensitive information
+config.properties

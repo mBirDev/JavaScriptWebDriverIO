@@ -1,5 +1,9 @@
 const registrationPage = require('../pageobjects/dataCreation.page');
 const { expect } = require('chai');
+const propertiesReader = require('properties-reader');
+
+// Load properties from the file
+const properties = propertiesReader('config.properties');
 describe('User Registration Tests', () => {
     before(async () => {
         await browser.maximizeWindow();
@@ -13,31 +17,36 @@ describe('User Registration Tests', () => {
     });
 
     it("Should enter Full Name", async () => {
-        await registrationPage.setValue("//input[@placeholder='First Name']", "Abc");
-        await registrationPage.setValue("//input[@placeholder='Last Name']", "XYZ");
+        const firstName = properties.get('firstName');
+        const lastName = properties.get('lastName');
+        await registrationPage.setValue("//input[@placeholder='First Name']", firstName);
+        await registrationPage.setValue("//input[@placeholder='Last Name']", lastName);
 
         const firstNameValue = await registrationPage.firstNameInput.getValue();
         const lastNameValue = await registrationPage.lastNameInput.getValue();
-        expect(firstNameValue).to.equal("Abc");
-        expect(lastNameValue).to.equal("XYZ");
+        expect(firstNameValue).to.equal(firstName);
+        expect(lastNameValue).to.equal(lastName);
     });
 
     it("Should enter Address", async () => {
-        await registrationPage.setValue("//textarea[@ng-model='Adress']", "123 Main Street");
+        const address = properties.get('address');
+        await registrationPage.setValue("//textarea[@ng-model='Adress']", address);
         const addressValue = await registrationPage.addressInput.getValue();
-        expect(addressValue).to.equal("123 Main Street");
+        expect(addressValue).to.equal(address);
     });
 
     it("Should enter email address", async () => {
-        await registrationPage.setValue("//input[@ng-model='EmailAdress']", "abc123@gmail.com");
+        const email = properties.get('email');
+        await registrationPage.setValue("//input[@ng-model='EmailAdress']", email);
         const emailValue = await registrationPage.emailInput.getValue();
-        expect(emailValue).to.equal("abc123@gmail.com");
+        expect(emailValue).to.equal(email);
     });
 
     it("Should enter phone number", async () => {
-        await registrationPage.setValue("//input[@ng-model='Phone']", "1234567890");
+        const phone = properties.get('phone');
+        await registrationPage.setValue("//input[@ng-model='Phone']", phone);
         const phoneValue = await registrationPage.phoneInput.getValue();
-        expect(phoneValue).to.equal("1234567890");
+        expect(phoneValue).to.equal(phone);
     });
 
     it("Should select the Male radio button", async () => {
