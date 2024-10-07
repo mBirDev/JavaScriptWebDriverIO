@@ -4,23 +4,23 @@ class DataCreationPage {
     }
 
     get firstNameInput() {
-        return $("input[placeholder='First Name']");
+        return $("//input[@placeholder='First Name']").getValue();
     }
 
     get lastNameInput() {
-        return $("input[placeholder='Last Name']");
+        return $("//input[@placeholder='Last Name']").getValue();
     }
 
     get addressInput() {
-        return $("textarea[ng-model='Adress']");
+        return $("//textarea[@ng-model='Adress']").getValue();
     }
 
     get emailInput() {
-        return $("input[ng-model='EmailAdress']");
+        return $("//input[@ng-model='EmailAdress']").getValue();
     }
 
     get phoneInput() {
-        return $("input[ng-model='Phone']");
+        return $("//input[@ng-model='Phone']").getValue();
     }
 
     get genderRadioButtons() {
@@ -42,7 +42,9 @@ class DataCreationPage {
     async setValue(selector, value) {
         const element = await $(selector);
         await element.waitForDisplayed();
-        await element.setValue(value);
+        if(await element.isExisting()){
+            await element.setValue(value);
+        }
     }
 
     async selectInputByValue(value, type) {
